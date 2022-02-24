@@ -20,3 +20,11 @@ class TestAppModels(TestCase):
         self.assertEqual(str(product_type_name), "Экспорт")
         self.assertEqual(str(delivery_test), 'Машина')
         self.assertEqual(str(multiple_addresses), 'Машина')
+
+    def test_model_file(self):
+        file_mock = mock.MagicMock(spec=File)
+        file_mock.name = 'test_2.pdf'
+        file_url = 'delivery/test_2.pdf'
+        file = Delivery.objects.create(product_name='Машина',
+                                       delivery_date=datetime.datetime.now().date(), file=file_mock)
+        self.assertEqual(file.file.name, file_url)
